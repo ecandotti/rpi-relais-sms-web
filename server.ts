@@ -1,6 +1,7 @@
 import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
+import path from 'path'
 
 import routes from './routes'
 
@@ -11,6 +12,10 @@ app.use(cors())
 
 // Provide API Server routes
 routes(app)
+
+app.get('*', (req: any, res: any) => {
+    res.sendFile(path.resolve(__dirname, './client/build', 'index.html'))
+})
 
 // In case of route Not Found
 app.use((req, res) => {

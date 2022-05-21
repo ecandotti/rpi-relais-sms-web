@@ -12,7 +12,7 @@
     },
     "author": "Enzo Candotti <enzo.candotti16@hotmail.com>",
     "license": "MIT",
-    "proxy": "http://localhost:7575",
+    "proxy": "http://localhost:80",
     "dependencies": {
         "axios": "^0.27.2",
         "jwt-decode": "^3.1.2",

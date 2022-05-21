@@ -46,7 +46,7 @@ export const Settings: React.FC = () => {
     return (
         <div className="w-screen h-screen relative bg-slate-200 text-p-2 text-xl transition-colors">
             <form
-                className="h-full flex flex-col justify-center text-slate-800 p-10"
+                className="h-full flex flex-col justify-center items-center text-slate-800 p-10"
                 onSubmit={updateContact as any}
             >
                 <div className="mb-5">
