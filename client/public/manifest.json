@@ -1,6 +1,6 @@
 {
-    "name": "Centre de contrôle",
-    "short_name": "Centre de contrôle",
+    "name": "ControlCenter",
+    "short_name": "ControlCenter",
     "icons": [
         {
             "src": "dist/assets/images/logo64.png",

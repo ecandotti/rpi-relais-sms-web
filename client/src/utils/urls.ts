@@ -13,5 +13,6 @@ export const urls = {
         VERIFY_TOKEN: '/api/user/verifyToken',
         UPDATE_CONTACT: '/api/user/updateContact',
         GET_RELAYS: '/api/relay/all',
+        UPDATE_RELAY_STATE: '/api/relay/update',
     },
 }

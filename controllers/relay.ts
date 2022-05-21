@@ -1,13 +1,43 @@
+import fs from 'fs'
+import path from 'path'
+
+import { sendEmail } from '../utils/sendMail'
+
+export const relaysPath = path.join(__dirname, '../configs/relaysState.json')
+
 export const getRelaysState = (req: any, res: any) => {
-    return res.json({
-        success: true,
-        relays: [
-            { id: 'A', number: 1, state: true },
-            { id: 'B', number: 2, state: true },
-            { id: 'C', number: 3, state: false },
-            { id: 'D', number: 4, state: false },
-            { id: 'E', number: 5, state: true },
-            { id: 'F', number: 6, state: true },
-        ],
+    fs.readFile(relaysPath, 'utf8', (err, data) => {
+        if (err) {
+            return res.json({
+                success: false,
+                err,
+            })
+        }
+
+        const relays = JSON.parse(data)
+
+        return res.json({
+            success: true,
+            relays,
+        })
+    })
+}
+
+export const updateRelayState = (req: any, res: any) => {
+    fs.readFile(relaysPath, 'utf8', (err, data) => {
+        if (err) {
+            return res.json({
+                success: false,
+                err,
+            })
+        }
+
+        const relays = JSON.parse(data)
+
+        sendEmail()
+
+        return res.json({
+            success: true,
+        })
     })
 }

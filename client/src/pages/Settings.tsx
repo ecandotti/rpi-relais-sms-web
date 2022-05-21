@@ -31,8 +31,6 @@ export const Settings: React.FC = () => {
             password,
         })
 
-        console.log(data)
-
         setIsLoading(false)
 
         if (data.success) {

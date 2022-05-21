@@ -5,6 +5,11 @@ import path from 'path'
 
 import routes from './routes'
 
+import { initGPIO } from './utils/initGPIO'
+
+// Initialisation GPIOs
+initGPIO()
+
 const app = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())

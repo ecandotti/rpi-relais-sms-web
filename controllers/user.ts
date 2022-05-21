@@ -3,7 +3,7 @@ import path from 'path'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
-const userPath = path.join(__dirname, '../configs/user.json')
+export const userPath = path.join(__dirname, '../configs/user.json')
 
 export const register = (req: any, res: any) => {
     fs.readFile(userPath, 'utf8', (err, data) => {
@@ -95,9 +95,14 @@ export const login = (req: any, res: any) => {
 
 export const updateContact = (req: any, res: any) => {
     fs.readFile(userPath, 'utf8', (err, data) => {
-        if (err) return res.json({ err })
+        if (err) {
+            return res.json({
+                success: false,
+                err,
+            })
+        }
 
-        const { username, password, phone, email } = JSON.parse(data)
+        const { username, password } = JSON.parse(data)
 
         const updateUser = {
             username,
@@ -131,9 +136,8 @@ export const updateContact = (req: any, res: any) => {
 
 export const verifyToken = (req: any, res: any) => {
     jwt.verify(req.body.token, process.env.SECRET_KEY as string, (err: any, user: any) => {
-        if (err) {
-            return res.json({ success: false })
-        }
+        if (err) return res.json({ success: false })
+
         return res.json({ success: true })
     })
 }

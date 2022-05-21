@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import ReactLoading from 'react-loading'
+import { notify } from 'react-notify-toast'
+
+import { Relay } from '../types/relay'
 
 import Switch from '../components/switch/Switch'
 
@@ -33,11 +36,26 @@ export const Dashboard: React.FC = () => {
         }
     }
 
+    const updateRelayState = async (GPIOnumber: number, e?: Event) => {
+        e?.preventDefault()
+        e?.stopPropagation()
+
+        const { data } = await api.post(urls.api.UPDATE_RELAY_STATE, { GPIOnumber })
+
+        if (data.success) {
+            notify.show('Relai mis à jour !', 'success')
+        } else {
+            notify.show('Une erreur est survenue', 'warning')
+        }
+    }
+
     return (
         <div className="w-screen h-screen relative bg-slate-200 text-p-2 text-xl transition-colors">
             <div className="h-full flex flex-col p-10 justify-evenly items-center">
                 {relaysList?.length > 1 ? (
-                    relaysList?.map((relay: any) => <Switch key={relay.id} relay={relay} />)
+                    relaysList?.map((relay: Relay) => (
+                        <Switch key={relay.id} relay={relay} updateRelayState={updateRelayState} />
+                    ))
                 ) : (
                     <div className="text-center">
                         <div>Impossible de recuperer les états des relais</div>

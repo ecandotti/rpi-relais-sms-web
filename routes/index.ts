@@ -1,5 +1,5 @@
 import { register, login, verifyToken, updateContact } from '../controllers/user'
-import { getRelaysState } from '../controllers/relay'
+import { getRelaysState, updateRelayState } from '../controllers/relay'
 
 const routes = (app: any) => {
     app.route('/api/user/register').post(register)
@@ -8,6 +8,7 @@ const routes = (app: any) => {
     app.route('/api/user/verifyToken').post(verifyToken)
 
     app.route('/api/relay/all').get(getRelaysState)
+    app.route('/api/relay/update').post(updateRelayState)
 }
 
 export default routes
