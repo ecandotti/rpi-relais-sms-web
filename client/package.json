@@ -1,0 +1,53 @@
+{
+    "name": "client",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "snowpack dev --polyfill-node",
+        "lint": "eslint ./src/",
+        "lint:fix": "eslint ./src/ --fix",
+        "format": "prettier --write './src/**/*.{js,jsx}' --config ./.prettierrc",
+        "build": "snowpack build --polyfill-node"
+    },
+    "author": "Enzo Candotti <enzo.candotti16@hotmail.com>",
+    "license": "MIT",
+    "proxy": "http://localhost:7575",
+    "dependencies": {
+        "axios": "^0.27.2",
+        "jwt-decode": "^3.1.2",
+        "react": "^18.1.0",
+        "react-dom": "^18.1.0",
+        "react-icons": "^4.3.1",
+        "react-loading": "^2.0.3",
+        "react-notify-toast": "^0.5.1",
+        "react-router-dom": "^6.3.0",
+        "tailwindcss": "^3.0.24"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.18.0",
+        "@babel/preset-env": "^7.18.0",
+        "@babel/preset-react": "^7.17.12",
+        "@babel/runtime": "^7.18.0",
+        "@snowpack/plugin-dotenv": "^2.2.0",
+        "@snowpack/plugin-postcss": "^1.4.3",
+        "@snowpack/plugin-react-refresh": "^2.5.0",
+        "@snowpack/plugin-typescript": "^1.2.1",
+        "@types/node": "^17.0.35",
+        "@types/react": "^18.0.9",
+        "@types/react-dom": "^18.0.4",
+        "@types/react-notify-toast": "^0.5.3",
+        "@typescript-eslint/eslint-plugin": "^5.25.0",
+        "@typescript-eslint/parser": "^5.25.0",
+        "autoprefixer": "^10.4.7",
+        "eslint": "^8.16.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "eslint-plugin-react": "^7.30.0",
+        "postcss": "^8.4.14",
+        "postcss-cli": "^9.1.0",
+        "prettier": "^2.6.2",
+        "snowpack": "^3.8.8",
+        "typescript": "^4.6.4"
+    }
+}

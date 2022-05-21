@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "useUnknownInCatchVariables": false,
+        "esModuleInterop": true,
+        "isolatedModules": true,
+        "types": ["node"],
+        "typeRoots": ["./types"],
+        "lib": ["DOM", "ESNext"],
+        "moduleResolution": "node",
+        "module": "CommonJS",
+        "noEmit": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "target": "ESNext",
+        "baseUrl": "."
+    },
+    "exclude": ["node_modules"]
+}

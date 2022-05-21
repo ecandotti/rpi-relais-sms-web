@@ -1,0 +1,1 @@
+# RPi which manage Relay and send SMS & eMail
