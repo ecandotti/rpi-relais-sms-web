@@ -1,5 +1,6 @@
 import fs from 'fs'
 import path from 'path'
+import rpiGPIO from 'rpi-gpio'
 
 import { sendEmail } from '../utils/sendMail'
 
@@ -24,6 +25,8 @@ export const getRelaysState = (req: any, res: any) => {
 }
 
 export const updateRelayState = (req: any, res: any) => {
+    const pin: number = req.body.GPIOnumber
+
     fs.readFile(relaysPath, 'utf8', (err, data) => {
         if (err) {
             return res.json({
@@ -34,10 +37,51 @@ export const updateRelayState = (req: any, res: any) => {
 
         const relays = JSON.parse(data)
 
-        sendEmail()
+        rpiGPIO.read(pin, (err, state) => {
+            if (err) {
+                return res.json({
+                    success: false,
+                    err,
+                })
+            }
 
-        return res.json({
-            success: true,
+            if (state) {
+                rpiGPIO.write(pin, false, err => {
+                    if (err) {
+                        return res.json({
+                            success: false,
+                            err,
+                        })
+                    }
+                })
+            } else {
+                rpiGPIO.write(pin, true, err => {
+                    if (err) {
+                        return res.json({
+                            success: false,
+                            err,
+                        })
+                    }
+                })
+            }
+        })
+
+        // sendEmail()
+
+        fs.readFile(relaysPath, 'utf8', (err, data) => {
+            if (err) {
+                return res.json({
+                    success: false,
+                    err,
+                })
+            }
+
+            const relays = JSON.parse(data)
+
+            return res.json({
+                success: true,
+                relays,
+            })
         })
     })
 }
