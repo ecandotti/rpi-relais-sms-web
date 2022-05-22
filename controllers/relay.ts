@@ -36,7 +36,11 @@ export const updateRelayState = (req: any, res: any) => {
     try {
         // Read GPIO value synchronously and write reverse value
         const read = mainRelaysList.get(pin).readSync()
-        mainRelaysList.get(pin).writeSync(!read)
+        if (read === 0) {
+            mainRelaysList.get(pin).writeSync(1)
+        } else {
+            mainRelaysList.get(pin).writeSync(0)
+        }
 
         const data = fs.readFileSync(relaysPath, 'utf8')
         const relays: [] = JSON.parse(data)
