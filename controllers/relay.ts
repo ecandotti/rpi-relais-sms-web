@@ -34,34 +34,34 @@ export const updateRelayState = (req: any, res: any) => {
     try {
         const data = fs.readFileSync(relaysPath, 'utf8')
 
-        // rpiGPIO.read(pin, (err, state) => {
-        //     if (err) {
-        //         return res.json({
-        //             success: false,
-        //             err,
-        //         })
-        //     }
+        rpiGPIO.read(pin, (err, state) => {
+            if (err) {
+                return res.json({
+                    success: false,
+                    err,
+                })
+            }
 
-        //     if (state) {
-        //         rpiGPIO.write(pin, false, err => {
-        //             if (err) {
-        //                 return res.json({
-        //                     success: false,
-        //                     err,
-        //                 })
-        //             }
-        //         })
-        //     } else {
-        //         rpiGPIO.write(pin, true, err => {
-        //             if (err) {
-        //                 return res.json({
-        //                     success: false,
-        //                     err,
-        //                 })
-        //             }
-        //         })
-        //     }
-        // })
+            if (state) {
+                rpiGPIO.write(pin, false, err => {
+                    if (err) {
+                        return res.json({
+                            success: false,
+                            err,
+                        })
+                    }
+                })
+            } else {
+                rpiGPIO.write(pin, true, err => {
+                    if (err) {
+                        return res.json({
+                            success: false,
+                            err,
+                        })
+                    }
+                })
+            }
+        })
 
         const relays: [] = JSON.parse(data)
 
