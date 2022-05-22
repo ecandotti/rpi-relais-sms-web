@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
-import rpiGPIO from 'rpi-gpio'
+
+import { mainRelaysList } from '../server'
 
 import { Relay } from '../types/relay'
 
@@ -32,37 +33,18 @@ export const updateRelayState = (req: any, res: any) => {
     const state: string = req.body.state
 
     try {
-        const data = fs.readFileSync(relaysPath, 'utf8')
-
-        rpiGPIO.read(pin, (err, state) => {
-            if (err) {
-                return res.json({
-                    success: false,
-                    err,
-                })
-            }
-
-            if (state) {
-                rpiGPIO.write(pin, false, err => {
-                    if (err) {
-                        return res.json({
-                            success: false,
-                            err,
-                        })
-                    }
-                })
-            } else {
-                rpiGPIO.write(pin, true, err => {
-                    if (err) {
-                        return res.json({
-                            success: false,
-                            err,
-                        })
-                    }
-                })
-            }
+        mainRelaysList.map((relay: any) => {
+            // if (relay.GPIOnumber === pin) {
+            //     Object.keys(relay).forEach(key => {
+            //         if (key === 'state') {
+            //             relay.state = relay.state === 'low' ? 'high' : 'low'
+            //         }
+            //     })
+            // }
+            console.log(relay)
         })
 
+        const data = fs.readFileSync(relaysPath, 'utf8')
         const relays: [] = JSON.parse(data)
 
         let newRelaysState: any[] = []
