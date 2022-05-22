@@ -1,4 +1,5 @@
 import fs from 'fs'
+import { Gpio } from 'onoff'
 import path from 'path'
 
 import { mainRelaysList } from '../server'
@@ -33,16 +34,9 @@ export const updateRelayState = (req: any, res: any) => {
     const state: string = req.body.state
 
     try {
-        mainRelaysList.map((relay: any) => {
-            // if (relay.GPIOnumber === pin) {
-            //     Object.keys(relay).forEach(key => {
-            //         if (key === 'state') {
-            //             relay.state = relay.state === 'low' ? 'high' : 'low'
-            //         }
-            //     })
-            // }
-            console.log(relay)
-        })
+        // Read GPIO value synchronously and write reverse value
+        const read = mainRelaysList.get(pin).readSync()
+        mainRelaysList.get(pin).writeSync(!read)
 
         const data = fs.readFileSync(relaysPath, 'utf8')
         const relays: [] = JSON.parse(data)

@@ -15,14 +15,13 @@ import { Relay } from './types/relay'
 const data = fs.readFileSync(relaysPath, 'utf8')
 const relays: Relay[] = JSON.parse(data)
 
-export const chanel1 = new Gpio(relays[0].GPIOnumber, relays[0].state)
-export const chanel2 = new Gpio(relays[1].GPIOnumber, relays[1].state)
-export const chanel3 = new Gpio(relays[2].GPIOnumber, relays[2].state)
-export const chanel4 = new Gpio(relays[3].GPIOnumber, relays[3].state)
-export const chanel5 = new Gpio(relays[4].GPIOnumber, relays[4].state)
-export const chanel6 = new Gpio(relays[5].GPIOnumber, relays[5].state)
-
-export const mainRelaysList = [chanel1, chanel2, chanel3, chanel4, chanel5, chanel6]
+export const mainRelaysList = new Map()
+mainRelaysList.set(4, new Gpio(relays[0].GPIOnumber, relays[0].state))
+mainRelaysList.set(27, new Gpio(relays[1].GPIOnumber, relays[1].state))
+mainRelaysList.set(22, new Gpio(relays[2].GPIOnumber, relays[2].state))
+mainRelaysList.set(23, new Gpio(relays[3].GPIOnumber, relays[3].state))
+mainRelaysList.set(24, new Gpio(relays[4].GPIOnumber, relays[4].state))
+mainRelaysList.set(25, new Gpio(relays[5].GPIOnumber, relays[5].state))
 
 const app = express()
 app.use(express.urlencoded({ extended: true }))
