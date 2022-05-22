@@ -14,7 +14,7 @@ export const Topbar: React.FC = () => {
     }
 
     return (
-        <div className="w-full h-14 z-40 text-xl text-slate-800 bg-slate-50 select-none">
+        <div className="w-full h-14 z-40 text-xl text-slate-800 bg-slate-50 select-none sticky top-0">
             <div className="flex justify-between items-center text-3xl text-slate-800 select-none p-3">
                 <div className="flex items-center">
                     <span className="text-green-700">Control</span>Center{' '}

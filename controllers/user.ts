@@ -6,14 +6,8 @@ import jwt from 'jsonwebtoken'
 export const userPath = path.join(__dirname, '../configs/user.json')
 
 export const register = (req: any, res: any) => {
-    fs.readFile(userPath, 'utf8', (err, data) => {
-        if (err) {
-            return res.json({
-                success: false,
-                err,
-            })
-        }
-
+    try {
+        const data = fs.readFileSync(userPath, 'utf8')
         const { username, password } = JSON.parse(data)
 
         if (username !== '' && password !== '') {
@@ -37,14 +31,7 @@ export const register = (req: any, res: any) => {
             email: '',
         }
 
-        fs.writeFile(userPath, JSON.stringify(newUser), err => {
-            if (err) {
-                return res.json({
-                    success: false,
-                    err,
-                })
-            }
-        })
+        fs.writeFileSync(userPath, JSON.stringify(newUser))
 
         return res.json({
             success: true,
@@ -58,18 +45,17 @@ export const register = (req: any, res: any) => {
                 process.env.SECRET_KEY as string,
             ),
         })
-    })
+    } catch (error) {
+        return res.json({
+            success: false,
+            error,
+        })
+    }
 }
 
 export const login = (req: any, res: any) => {
-    fs.readFile(userPath, 'utf8', (err, data) => {
-        if (err) {
-            return res.json({
-                success: false,
-                err,
-            })
-        }
-
+    try {
+        const data = fs.readFileSync(userPath, 'utf8')
         const { username, password, phone, email } = JSON.parse(data)
 
         if (username === '' && password === '') {
@@ -90,18 +76,17 @@ export const login = (req: any, res: any) => {
             success: true,
             token: jwt.sign({ username, password, phone, email }, process.env.SECRET_KEY as string),
         })
-    })
+    } catch (error) {
+        return res.json({
+            success: false,
+            error,
+        })
+    }
 }
 
 export const updateContact = (req: any, res: any) => {
-    fs.readFile(userPath, 'utf8', (err, data) => {
-        if (err) {
-            return res.json({
-                success: false,
-                err,
-            })
-        }
-
+    try {
+        const data = fs.readFileSync(userPath, 'utf8')
         const { username, password } = JSON.parse(data)
 
         const updateUser = {
@@ -111,13 +96,7 @@ export const updateContact = (req: any, res: any) => {
             email: req.body.newMail,
         }
 
-        fs.writeFile(userPath, JSON.stringify(updateUser), err => {
-            if (err)
-                return res.json({
-                    success: false,
-                    err,
-                })
-        })
+        fs.writeFileSync(userPath, JSON.stringify(updateUser))
 
         return res.json({
             success: true,
@@ -131,7 +110,12 @@ export const updateContact = (req: any, res: any) => {
                 process.env.SECRET_KEY as string,
             ),
         })
-    })
+    } catch (error) {
+        return res.json({
+            success: false,
+            error,
+        })
+    }
 }
 
 export const verifyToken = (req: any, res: any) => {

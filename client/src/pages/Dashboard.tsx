@@ -36,13 +36,23 @@ export const Dashboard: React.FC = () => {
         }
     }
 
-    const updateRelayState = async (GPIOnumber: number, e?: Event) => {
+    const updateRelayState = async (
+        GPIOnumber: number,
+        relayNumber: number,
+        state: string,
+        e?: Event,
+    ) => {
         e?.preventDefault()
         e?.stopPropagation()
 
-        const { data } = await api.post(urls.api.UPDATE_RELAY_STATE, { GPIOnumber })
+        const { data } = await api.post(urls.api.UPDATE_RELAY_STATE, {
+            GPIOnumber,
+            relayNumber,
+            state,
+        })
 
         if (data.success) {
+            setRelaysList(data.newRelays)
             notify.show('Relai mis à jour !', 'success')
         } else {
             notify.show('Une erreur est survenue', 'warning')
@@ -51,7 +61,7 @@ export const Dashboard: React.FC = () => {
 
     return (
         <div className="w-screen h-screen relative bg-slate-200 text-p-2 text-xl transition-colors">
-            <div className="h-full flex flex-col p-10 justify-evenly items-center">
+            <div className="h-full flex flex-col p-5 justify-evenly items-center">
                 {relaysList?.length > 1 ? (
                     relaysList?.map((relay: Relay) => (
                         <Switch key={relay.id} relay={relay} updateRelayState={updateRelayState} />
