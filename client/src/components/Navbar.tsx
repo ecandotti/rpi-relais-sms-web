@@ -8,7 +8,7 @@ export const Navbar = () => {
     const resolved = useLocation()
 
     return (
-        <nav className="w-full flex flex-row">
+        <nav className="w-full flex flex-row sticky bottom-0 bg-slate-50">
             <div className="flex-1">
                 <Link
                     to={urls.app.DASHBOARD}

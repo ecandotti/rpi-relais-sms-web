@@ -28,6 +28,8 @@ export const getRelaysState = (req: any, res: any) => {
 
 export const updateRelayState = (req: any, res: any) => {
     const pin: number = req.body.GPIOnumber
+    const relayNumber: number = req.body.relayNumber
+    const state: string = req.body.state
 
     try {
         const data = fs.readFileSync(relaysPath, 'utf8')
@@ -79,7 +81,7 @@ export const updateRelayState = (req: any, res: any) => {
 
         fs.writeFileSync(relaysPath, JSON.stringify(newRelaysState))
 
-        sendEmail()
+        sendEmail(relayNumber, state)
 
         const newData = fs.readFileSync(relaysPath, 'utf8')
         const newRelays = JSON.parse(newData)
