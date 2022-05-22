@@ -22,10 +22,10 @@ const Switch: React.FC<Props> = ({ relay, updateRelayState }) => {
                 <MdOutlineSettingsInputAntenna className="mr-2" /> Relai {id} :
             </div>
             <div className="z-50">
-                <label className="switch ml-5">
+                <div className="switch ml-5">
                     <input type="checkbox" checked={state === 'high'} readOnly />
                     <span className="slider round"></span>
-                </label>
+                </div>
             </div>
         </div>
     )

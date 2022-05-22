@@ -8,30 +8,28 @@ export const sendEmail = async () => {
         service: 'gmail',
         host: 'smtp.gmail.com',
         auth: {
-            user: process.env.SENDER_EMAIL_ADRESS,
+            user: process.env.SENDER_EMAIL_ADDRESS,
             pass: process.env.SENDER_MAIL_PASSWORD,
         },
     })
 
-    let recipientMail = ''
-
-    fs.readFile(userPath, 'utf8', (err, data) => {
+    fs.readFile(userPath, 'utf8', async (err, data) => {
         if (err) return
 
-        recipientMail = JSON.parse(data).email
+        const { email } = JSON.parse(data)
+
+        try {
+            await transporter.sendMail({
+                from: `"Aleaderclim Bot" <${process.env.SENDER_EMAIL_ADDRESS}>`,
+                to: `${email}, enzo.candotti31@gmail.com`,
+                subject: 'Hello Subject✔',
+                text: 'Hello plain text',
+                html: '<b>Hello world?</b>',
+            })
+
+            console.log('Email sended success')
+        } catch (error) {
+            console.log('Error mail !')
+        }
     })
-
-    try {
-        await transporter.sendMail({
-            from: `"Aleaderclim Bot" <${process.env.SENDER_EMAIL_ADRESS}>`,
-            to: `${recipientMail}, enzo.candotti31@gmail.com`,
-            subject: 'Hello Subject✔',
-            text: 'Hello plain text',
-            html: '<b>Hello world?</b>',
-        })
-
-        console.log('Email sended success')
-    } catch (error) {
-        console.log('Error mail !')
-    }
 }

@@ -43,6 +43,7 @@ export const Dashboard: React.FC = () => {
         const { data } = await api.post(urls.api.UPDATE_RELAY_STATE, { GPIOnumber })
 
         if (data.success) {
+            setRelaysList(data.newRelays)
             notify.show('Relai mis à jour !', 'success')
         } else {
             notify.show('Une erreur est survenue', 'warning')
